@@ -14,11 +14,11 @@ def getFeatures(purpose,folders):
     for j in range(1,folders+1):
         print 'inside'
         #for i in range(1,frames+1):
-        inputImageFile='/home/mantavya294/BTP/Datasets/UCSD_Anomaly_Dataset.v1p2/UCSDped1/'+purpose+'/'+purpose+"%03d"%j+'/'+'{}'+'.tif'
+        inputImageFile='/home/mantavya294/BTP/Datasets/UCSD_Anomaly_Dataset.v1p2/UCSDped1/'+purpose+'/'+purpose+"%03d"%j+'/'+'{}'+'.jpg'
         net=caffe.Net(modelDefinition,modelWeights,caffe.TEST)
 
-        imageMeanFile='/home/mantavya294/caffe/python/caffe/imagenet/ilsvrc_2012_mean.npy'
-
+        #imageMeanFile='/home/mantavya294/caffe/python/caffe/imagenet/ilsvrc_2012_mean.npy'
+        imageMeanFile='/home/mantavya294/BTP/Scripts/MeanImage.npy'
         transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
         transformer.set_mean('data', np.load(imageMeanFile).mean(1).mean(1))
         transformer.set_transpose('data', (2,0,1))
@@ -45,7 +45,7 @@ def getValidationFeatures(purpose,folders,frames):
     modelWeights='/home/mantavya294/caffe/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel'
     frameCount=(36-folders)*frames
     features=np.zeros(shape=(frameCount,4096))
-    for j in range(folders+1,37):
+    for j in range(folders+1,35):
         print 'inside'
         for i in range(1,frames+1):
             inputImageFile='/home/mantavya294/BTP/Datasets/UCSD_Anomaly_Dataset.v1p2/UCSDped1/'+purpose+'/'+purpose+"%03d"%j+'/'+"%03d"%i+'.tif'

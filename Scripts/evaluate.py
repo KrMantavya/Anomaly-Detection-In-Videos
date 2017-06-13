@@ -45,33 +45,40 @@ def getAccuracy(prediction,folder,datasetNo):
 
     tp=0.0
     fp=0.0
-
+    matches=0.0
+    label=np.zeros(shape=(200*folder))
     for i in range(int(folder)):
         truePositive=0
         falsePositive=0
         ones=0
         for j in range(200):
+            label[i*200+j]=labels[i][j]
             if labels[i][j]==1:
                 ones+=1
                 if prediction[i*200+j]==-1:
                     falsePositive+=1
+                else:
+                    matches+=1
             else:
                 if prediction[i*200+j]==-1:
                     truePositive+=1
+                    matches+=1
 
-        print "\n PERCENTAGE OF FALSE POSITIVE"
+
         if ones!=0:
             t_fp = float(falsePositive)/float(ones)
         else:
             t_fp=0.0
-        print t_fp
 
-        print "\n TRUE POSITIVE ACCURACY"
+
+
         t_tp = float(truePositive)/float(200-ones)
-        print t_tp
 
+
+        
         tp+=t_tp
         fp+=t_fp
+    accuracy=float(matches)/float(folder*200)
     tp/=float(folder)
     fp/=float(folder)
-    return tp,fp
+    return tp,fp,accuracy,label

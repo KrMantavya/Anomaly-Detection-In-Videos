@@ -4,7 +4,7 @@ from sklearn import svm
 import matplotlib
 
 def getTrainedSVM(trainingData):
-    model=svm.OneClassSVM(nu=0.00005,kernel='rbf',gamma=0.0001)
+    model=svm.OneClassSVM(nu=0.00001,kernel='rbf',gamma=0.000008)
     #trainingData=np.reshape(trainingData,(1,len(trainingData)))
     print trainingData.shape
     model.fit(trainingData)
